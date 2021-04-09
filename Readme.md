@@ -1,0 +1,1 @@
+Getting tickets using Typescript, Kubernetes, Docker with a microservices architecture.

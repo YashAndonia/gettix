@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests: #this says there are a bunch of k files to watch in this folder
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: yashnaiktheinternetfolks/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: . #put in corresponding file in the container
