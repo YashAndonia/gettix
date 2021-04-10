@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    #this is to search for who to apply config on
+    matchLabels:
+      app: auth-mongo
+  #this one applied to pod
+  template:
+    metadata:
+      labels:
+        app: auth-mongo
+    spec:
+      containers:
+        - name: auth-mongo
+          image: mongo #docker hub mongo implementation
+---
+#service
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-mongo-srv
+spec:
+  selector:
+    app: auth-mongo # to find pod to comm with
+  ports:
+    - name: db #for logging purpose
+      protocol: TCP
+      port: 27017 #mongo listens here by default
+      targetPort: 27017

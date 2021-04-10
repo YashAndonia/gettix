@@ -15,6 +15,14 @@ spec:
       containers:
         - name: auth
           image: yashnaiktheinternetfolks/auth
+          env:
+            #to get access to jwt key stored in secret object when accessing env
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+
 ---
 #service
 apiVersion: v1
